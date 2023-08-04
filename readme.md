@@ -27,9 +27,9 @@ Transient keyword is used in Serialization while volatile is used in multi-threa
 
 ##======SpringBoot Question====
 ##1. How Spring boot internally works?
-####1. Spring boot application execution will start from the main() method.
-####2. The main() method internally call SpringApplication.run() method.
-####3. SpringApplication.run() method performs bootstrapping for our spring boot application.
+#### 1. Spring boot application execution will start from the main() method.
+#### 2. The main() method internally call SpringApplication.run() method.
+#### 3. SpringApplication.run() method performs bootstrapping for our spring boot application.
 ####4. Starts StopWatch to identify the time taken to bootstrap the spring boot application.
 ####5. Prepares environment to run our spring boot application (dev, prod, qa, uat).
 ####6. Print banner ( Spring Boot Logo prints on console).
