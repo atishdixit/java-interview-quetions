@@ -71,3 +71,90 @@ The Spring Boot Maven plugin provides many convenient features:
 ## 5 How to Change Default Embedded Tomcat Server Port and Context Path in Spring Boot Application?
 1. server.port=8080
 2. server.servlet.context-path=/springboot2webapp
+
+## 5 How static,instance and constructor referenceing works in java stream?
+In Java Streams, method references provide a shorthand syntax for lambda expressions that simply call a method. They make your code more concise and readable. There are three main types of method references used in streams:
+
+🔹 1. Static Method Reference
+Syntax: ClassName::staticMethodName
+This refers to a static method of a class. It’s used when the lambda expression calls a static method.
+✅ Example:
+List<String> names = Arrays.asList("Atish", "Neha", "Ravi");
+names.stream()
+     .map(String::toUpperCase) // Equivalent to name -> String.toUpperCase(name)
+     .forEach(System.out::println);
+
+
+Another example with a custom static method:
+public class Utils {
+    public static String addPrefix(String name) {
+        return "Mr. " + name;
+    }
+}
+
+List<String> names = Arrays.asList("Atish", "Neha");
+names.stream()
+     .map(Utils::addPrefix)
+     .forEach(System.out::println);
+
+
+
+🔹 2. Instance Method Reference (of a particular object)
+Syntax: instance::instanceMethodName
+Used when you want to call an instance method on a specific object.
+✅ Example:
+public class Printer {
+    public void print(String s) {
+        System.out.println(s);
+    }
+}
+
+Printer printer = new Printer();
+List<String> messages = Arrays.asList("Hello", "World");
+
+messages.stream()
+        .forEach(printer::print); // Equivalent to msg -> printer.print(msg)
+
+
+
+🔹 3. Instance Method Reference (of an arbitrary object of a particular type)
+Syntax: ClassName::instanceMethodName
+Used when the lambda calls an instance method on the stream element itself.
+✅ Example:
+List<String> names = Arrays.asList("Atish", "Neha", "Ravi");
+
+names.stream()
+     .map(String::toLowerCase) // Equivalent to name -> name.toLowerCase()
+     .forEach(System.out::println);
+
+
+
+🔹 4. Constructor Reference
+Syntax: ClassName::new
+Used to create new objects in a concise way, especially useful with map() or collect().
+✅ Example:
+List<String> names = Arrays.asList("Atish", "Neha");
+
+List<Person> people = names.stream()
+                           .map(Person::new) // Equivalent to name -> new Person(name)
+                           .collect(Collectors.toList());
+
+
+Assuming:
+public class Person {
+    private String name;
+    public Person(String name) {
+        this.name = name;
+    }
+}
+
+
+
+🧠 Summary Table
+|  |  |  | 
+|  | ClassName::staticMethod | Math::absUtils::addPrefix | 
+|  | instance::method | printer::print | 
+|  | ClassName::method | String::toLowerCasePerson::getName | 
+|  | ClassName::new | Person::newArrayList::new | 
+
+
